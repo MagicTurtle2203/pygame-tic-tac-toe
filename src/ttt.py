@@ -11,7 +11,7 @@ class TicTacToe:
     def add_move(self, move: int):
         row, col = divmod(move, 3)
 
-        if self.board[row][col] == '':
+        if self.board[row][col] == ' ':
             self.board[row][col] = self.turn
         else:
             raise SpotAlreadyTaken(f"spot already taken by {self.board[row][col]}")
@@ -24,7 +24,7 @@ class TicTacToe:
             self.turn = 'x'
 
     def find_winner(self):
-        if any(self.board[row][col] == '' for row in range(3) for col in range(3)):
+        if any(self.board[row][col] == ' ' for row in range(3) for col in range(3)):
             for col in range(3):
                 for row in range(3):
                     for coldelta in [-1, 0, 1]:
@@ -38,7 +38,7 @@ class TicTacToe:
     def _three_in_a_row(self, col: int, row: int, coldelta: int, rowdelta: int) -> bool:
         start_cell = self.board[col][row]
 
-        if start_cell == '':
+        if start_cell == ' ':
             return False
         else:
             for i in range(1, 3):
@@ -50,8 +50,7 @@ class TicTacToe:
 
     def display_board(self) -> None:
         for row in range(len(self.board)):
-            print('|'.join([' ' if self.board[row][col] == '' else self.board[row][col]
-                            for col in range(len(self.board[row]))]))
+            print('|'.join([self.board[row][col] for col in range(len(self.board[row]))]))
 
     @staticmethod
     def _create_board() -> [[str]]:
@@ -60,7 +59,7 @@ class TicTacToe:
         for _ in range(3):
             new_board.append([])
             for _ in range(3):
-                new_board[-1].append('')
+                new_board[-1].append(' ')
 
         return new_board
 
