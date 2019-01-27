@@ -35,6 +35,10 @@ class TicTacToe:
         else:
             self.winner = 'tie'
 
+    def display_board(self) -> None:
+        for row in range(len(self.board)):
+            print('|'.join([self.board[row][col] for col in range(len(self.board[row]))]))
+
     def _three_in_a_row(self, col: int, row: int, coldelta: int, rowdelta: int) -> bool:
         start_cell = self.board[col][row]
 
@@ -47,10 +51,6 @@ class TicTacToe:
                         or self.board[col + coldelta *i][row + rowdelta * i] != start_cell:
                     return False
             return True
-
-    def display_board(self) -> None:
-        for row in range(len(self.board)):
-            print('|'.join([self.board[row][col] for col in range(len(self.board[row]))]))
 
     @staticmethod
     def _create_board() -> [[str]]:
