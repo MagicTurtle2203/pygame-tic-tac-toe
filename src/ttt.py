@@ -9,7 +9,7 @@ class TicTacToe:
         self.winner = None
 
     def add_move(self, move: int):
-        row, col = divmod(move - 1, 3)
+        row, col = divmod(move, 3)
 
         if self.board[row][col] == ' ':
             self.board[row][col] = self.turn
@@ -19,7 +19,7 @@ class TicTacToe:
         self.find_winner()
 
         if self.turn == 'x':
-            self.turn = 'y'
+            self.turn = 'o'
         else:
             self.turn = 'x'
 
@@ -65,18 +65,18 @@ class TicTacToe:
 
 
 if __name__ == '__main__':
-    ttt = TicTacToe()
+    _ttt = TicTacToe()
     print("Type the number of the cell you wish to place your piece\n"
           "1 is the top left cell and 9 is the bottom right cell")
-    while ttt.winner is None:
-        print(f"\n{ttt.turn}'s turn")
+    while _ttt.winner is None:
+        print(f"\n{_ttt.turn}'s turn")
         try:
-            ttt.add_move(int(input("Move: ")))
+            _ttt.add_move(int(input("Move: ")) - 1)
         except SpotAlreadyTaken:
             print("pick another spot")
             continue
-        ttt.display_board()
-    if ttt.winner == 'tie':
+        _ttt.display_board()
+    if _ttt.winner == 'tie':
         print("\nit's a tie!")
     else:
-        print(f"\n{ttt.winner} won!")
+        print(f"\n{_ttt.winner} won!")
