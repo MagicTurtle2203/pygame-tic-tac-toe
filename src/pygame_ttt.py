@@ -14,7 +14,8 @@ class TicTacToeGame:
 
         ttt_surface = pygame.Surface((300, 300))
 
-        b_list = [ttt_surface.blit(pygame.Surface((100, 100)), (x, y)) for y in [0, 100, 200] for x in [0, 100, 200]]
+        b_list = [ttt_surface.blit(pygame.Surface((100, 100)), (x, y))
+                  for y in [0, 100, 200] for x in [0, 100, 200]]
 
         pygame.draw.line(ttt_surface, (255, 255, 255), (100, 0), (100, 300), 5)
         pygame.draw.line(ttt_surface, (255, 255, 255), (200, 0), (200, 300), 5)
@@ -42,30 +43,34 @@ class TicTacToeGame:
                                     print(e)
                                     continue
 
-            self._draw_board()
+            display_surface = pygame.display.get_surface()
+
+            board_font = pygame.font.Font('freesansbold.ttf', 100)
+
+            for row in range(len(self._ttt.board)):
+                for col in range(len(self._ttt.board[row])):
+                    if self._ttt.board[row][col] != ' ':
+                        display_surface.blit(board_font.render(self._ttt.board[row][col], True, (255, 255, 255)),
+                                         (col * 100 + 30, row * 100 + 10))
+
+            font = pygame.font.Font('freesansbold.ttf', 32)
+            text_surface = pygame.Surface((300, 50))
+
+            if self._ttt.winner is None:
+                text = font.render(f"{self._ttt.turn.upper()}'s turn", True, (255, 255, 255))
+                text_surface.blit(text, (93, 15))
+            elif self._ttt.winner == 'tie':
+                text = font.render("Tie!", True, (255, 255, 255))
+                text_surface.blit(text, (122, 15))
+            else:
+                text = font.render(f"{self._ttt.winner.upper()} is the winner!", True, (255, 255, 255))
+                text_surface.blit(text, (25, 15))
+
+            display_surface.blit(text_surface, (10, 300))
+
+            pygame.display.flip()
 
         pygame.quit()
-
-    def _draw_board(self):
-        display_surface = pygame.display.get_surface()
-
-        font = pygame.font.Font('freesansbold.ttf', 32)
-        text_surface = pygame.Surface((300, 50))
-
-        if self._ttt.winner is None:
-            text = font.render(f"{self._ttt.turn.upper()}'s turn", True, (255, 255, 255))
-            text_surface.blit(text, (93, 15))
-        elif self._ttt.winner == 'tie':
-            text = font.render("Tie!", True, (255, 255, 255))
-            text_surface.blit(text, (122, 15))
-        else:
-            text = font.render(f"{self._ttt.winner.upper()} is the winner!", True, (255, 255, 255))
-            text_surface.blit(text, (25, 15))
-
-        display_surface.blit(text_surface, (10, 300))
-
-        pygame.display.flip()
-
 
 if __name__ == '__main__':
     TicTacToeGame().main()

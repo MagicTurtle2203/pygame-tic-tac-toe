@@ -24,15 +24,15 @@ class TicTacToe:
             self.turn = 'x'
 
     def find_winner(self):
-        if any(self.board[row][col] == ' ' for row in range(3) for col in range(3)):
-            for col in range(3):
-                for row in range(3):
-                    for coldelta in [-1, 0, 1]:
-                        for rowdelta in [-1, 0, 1]:
-                            if coldelta != 0 or rowdelta != 0:
-                                if self._three_in_a_row(col, row, coldelta, rowdelta):
-                                    self.winner = self.turn
-        else:
+        for col in range(3):
+            for row in range(3):
+                for coldelta in [-1, 0, 1]:
+                    for rowdelta in [-1, 0, 1]:
+                        if coldelta != 0 or rowdelta != 0:
+                            if self._three_in_a_row(col, row, coldelta, rowdelta):
+                                self.winner = self.turn
+
+        if all(self.board[row][col] != ' ' for row in range(3) for col in range(3)) and self.winner is None:
             self.winner = 'tie'
 
     def display_board(self) -> None:
