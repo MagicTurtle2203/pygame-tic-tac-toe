@@ -9,7 +9,7 @@ class TicTacToe:
         self.winner = None
 
     def add_move(self, move: int):
-        row, col = divmod(move, 3)
+        row, col = divmod(move - 1, 3)
 
         if self.board[row][col] == ' ':
             self.board[row][col] = self.turn
@@ -67,7 +67,7 @@ class TicTacToe:
 if __name__ == '__main__':
     ttt = TicTacToe()
     print("Type the number of the cell you wish to place your piece\n"
-          "0 is the top left cell and 8 is the bottom right cell")
+          "1 is the top left cell and 9 is the bottom right cell")
     while ttt.winner is None:
         print(f"\n{ttt.turn}'s turn")
         try:
