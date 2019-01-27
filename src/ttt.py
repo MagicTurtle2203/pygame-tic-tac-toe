@@ -66,15 +66,17 @@ class TicTacToe:
 
 if __name__ == '__main__':
     ttt = TicTacToe()
+    print("Type the number of the cell you wish to place your piece\n"
+          "0 is the top left cell and 8 is the bottom right cell")
     while ttt.winner is None:
-        print(f"{ttt.turn}'s turn")
+        print(f"\n{ttt.turn}'s turn")
         try:
-            ttt.add_move(int(input()))
+            ttt.add_move(int(input("Move: ")))
         except SpotAlreadyTaken:
             print("pick another spot")
             continue
         ttt.display_board()
     if ttt.winner == 'tie':
-        print("it's a tie!")
+        print("\nit's a tie!")
     else:
-        print(f"{ttt.winner} won!")
+        print(f"\n{ttt.winner} won!")
