@@ -30,16 +30,17 @@ class TicTacToeGame:
                     self.running = False
 
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    pos = pygame.mouse.get_pos()
+                    if self._ttt.winner is None:
+                        pos = pygame.mouse.get_pos()
 
-                    for i in range(len(b_list)):
-                        if b_list[i].collidepoint(pos):
-                            try:
-                                self._ttt.add_move(i)
-                                self._ttt.display_board()
-                            except ttt.SpotAlreadyTaken as e:
-                                print(e)
-                                continue
+                        for i in range(len(b_list)):
+                            if b_list[i].collidepoint(pos):
+                                try:
+                                    self._ttt.add_move(i)
+                                    self._ttt.display_board()
+                                except ttt.SpotAlreadyTaken as e:
+                                    print(e)
+                                    continue
 
             self._draw_board()
 
